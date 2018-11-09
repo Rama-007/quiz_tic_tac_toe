@@ -36,27 +36,53 @@ contract tic_tac_toe
     {
         for(uint i=0;i<3;i++)
         {
-            if(board[i][0]==board[i][1] && board[i][1]==board[i][2])
+            if(board[i][0]==board[i][1] && board[i][1]==board[i][2] && board[i][1]!=-1)
             {
                 return true;
             }
         }
         for(i=0;i<3;i++)
         {
-            if(board[0][i]==board[1][i] && board[1][i]==board[2][i])
+            if(board[0][i]==board[1][i] && board[1][i]==board[2][i] && board[1][i]!=-1)
             {
                 return true;
             }
         }
-        if(board[0][0]==board[1][1] && board[1][1]==board[2][2])
+        if(board[0][0]==board[1][1] && board[1][1]==board[2][2] && board[1][1]!=-1)
         {
             return true;
         }
-        if(board[0][2]==board[1][1] && board[1][1]==board[2][0])
+        if(board[0][2]==board[1][1] && board[1][1]==board[2][0] && board[1][1]!=-1)
         {
             return true;
         }
         return false;
+    }
+    function winner() public returns (int)
+    {
+        for(uint i=0;i<3;i++)
+        {
+            if(board[i][0]==board[i][1] && board[i][1]==board[i][2] && board[i][1]!=-1)
+            {
+                return board[i][0];
+            }
+        }
+        for(i=0;i<3;i++)
+        {
+            if(board[0][i]==board[1][i] && board[1][i]==board[2][i] && board[1][i]!=-1)
+            {
+                return board[0][i];
+            }
+        }
+        if(board[0][0]==board[1][1] && board[1][1]==board[2][2] && board[1][1]!=-1)
+        {
+            return board[0][0];
+        }
+        if(board[0][2]==board[1][1] && board[1][1]==board[2][0] && board[1][1]!=-1)
+        {
+            return board[2][0];
+        }
+        return -1;
     }
     
     function is_board_full() returns (bool)
@@ -99,11 +125,24 @@ contract tic_tac_toe
         turn++;
     }
     
-    function get_winner() view public returns (address)
+    function toString(address x) returns (string) {
+    bytes memory b = new bytes(20);
+    for (uint i = 0; i < 20; i++)
+        b[i] = byte(uint8(uint(x) / (2**(8*(19 - i)))));
+    return string(b);
+    }
+    
+    function get_winner() view public returns (string)
     {
+        require(msg.sender==conductor);
         require(game_not_over()==false || is_board_full()==true);
-        
-        
+        int a=winner();
+        if(a==-1)
+            return "draw";
+        for(int i=0;i<2;i++)
+        {
+            if(a==player[msg.sender]%2)
+        }
     }
     
     
