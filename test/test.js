@@ -18,10 +18,28 @@ contract("Quiz", accounts => {
 		});
 		describe("success case", () => {
 			it("1 person can register successfully", async () => {
-				await register({from: accounts[1]});
-				assert.equal(await instance.player_count.call(),1);
+				await instance.register({from: accounts[1]});
+			});
+		});
+		describe("success case", () => {
+			it("1 person can register successfully", async () => {
+				await instance.register({from: accounts[1]});
+				await instance.register({from: accounts[2]});
+			});
+		});
+		describe("Fail case", () => {
+			it("1 person can register successfully", async () => {
+				await instance.register({from: accounts[1]});
+				await instance.register({from: accounts[1]});
+			});
+		});
+		describe("success case", () => {
+			it("1 person can register successfully", async () => {
+				await instance.register({from: accounts[1]});
+				await instance.register({from: accounts[2]});
+				await instance.register({from: accounts[3]});
 			});
 		});
 	});
-
+	
 });
