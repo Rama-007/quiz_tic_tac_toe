@@ -6,6 +6,7 @@ contract tic_tac_toe
     int [3][3] board;
     mapping (address => bool) register_user;
     mapping(address => int) player;
+    mapping(int => address) player_index;
     int player_count;
     int game_over;
     int turn;
@@ -110,6 +111,7 @@ contract tic_tac_toe
         require(register_user[msg.sender]!=true,"already register");
         register_user[msg.sender]=true;
         player[msg.sender]=player_count;
+        player_index[player_count]=msg.sender;
         player_count++;
     }
     
@@ -141,7 +143,10 @@ contract tic_tac_toe
             return "draw";
         for(int i=0;i<2;i++)
         {
-            if(a==player[msg.sender]%2)
+            if(a==%2)
+            {
+                return toString(player_index[])
+            }
         }
     }
     
