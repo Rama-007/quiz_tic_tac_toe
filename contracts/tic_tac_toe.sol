@@ -59,7 +59,7 @@ contract tic_tac_toe
         }
         return false;
     }
-    function winner() public returns (int)
+    function winner() private returns (int)
     {
         for(uint i=0;i<3;i++)
         {
@@ -127,25 +127,25 @@ contract tic_tac_toe
         turn++;
     }
     
-    function toString(address x) returns (string) {
+    function toString(address x) private returns (string) {
     bytes memory b = new bytes(20);
     for (uint i = 0; i < 20; i++)
         b[i] = byte(uint8(uint(x) / (2**(8*(19 - i)))));
     return string(b);
     }
     
-    function get_winner() view public returns (string)
+    function get_winner() view public returns (address)
     {
         require(msg.sender==conductor);
-        require(game_not_over()==false || is_board_full()==true);
+        require(game_not_over()==true || is_board_full()==true);
         int a=winner();
         if(a==-1)
-            return "draw";
+            return conductor;
         for(int i=0;i<2;i++)
         {
-            if(a==%2)
+            if(a==player[player_index[i]]%2)
             {
-                return toString(player_index[])
+                return player_index[i];
             }
         }
     }
